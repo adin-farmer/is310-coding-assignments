@@ -31,14 +31,14 @@ def add_char():
         for i in range(4): # Deadlock characters have 4 abilities
             ability = input("Enter Ability " + str(i + 1) + ": ")
             scratch.append(ability) # adding all the abilities to our "scratch" list 
-        # print(scratch)
+        print(scratch)
         correct = input("Is this the correct data? ") # Confirming with the user
         if correct.lower() == "yes":
             chars.append(scratch)
             # csvout.writerow(chars)
             with open(file, "w") as outfile: # Writing out the final file
                 for char in chars:
-                    outfile.write(str(char))
+                    outfile.write(str(char)) + "\n"
             for name, ability_1, ability_2, ability_3, ability_4 in chars: # Adding everyting in the list to the table
                 table.add_row(name, ability_1, ability_2, ability_3, ability_4)
         elif correct.lower() == "no": # Repeats the initial input loop if the user wants
@@ -47,6 +47,8 @@ def add_char():
             for i in range(4):
                 ability = input("Enter Ability " + str(i + 1) + ": ")
                 scratch.append(ability)
+        else:
+            input("Input not understood, please enter Yes or No")
         scratch = []
     console.print(table) # Prints table
     print("Your data has been added. \nYou can find it at " + file) # Prints confirmation and the file path
