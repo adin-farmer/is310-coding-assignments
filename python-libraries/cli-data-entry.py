@@ -1,7 +1,5 @@
 from rich.console import Console
 from rich.table import Table
-import pathlib
-import csv
 
 console = Console()
 
@@ -23,34 +21,34 @@ console.print("\n[bold cyan]Now I want you to enter your own character![/bold cy
 #     csvout = csv.writer(outfile, '')
 
 def add_char():
-    chars = []
-    scratch = []
+    chars = [] # Will contain all characters added
+    scratch = [] # This is a list that will get rewritten
     heroes_added = input("Enter the amount of heroes you want to add: ")
-    file = "python-libraries/heroes.csv"
-    for i in range(int(heroes_added)):
+    file = "python-libraries/heroes.csv" # This contains the file path, it's helpful for writing to a csv and printing later
+    for i in range(int(heroes_added)): # Establishes how many times this loop repeats.
         name = input("Enter the name of your character: ")
         scratch.append(name)
-        for i in range(4):
+        for i in range(4): # Deadlock characters have 4 abilities
             ability = input("Enter Ability " + str(i + 1) + ": ")
-            scratch.append(ability)
-        print(scratch)
-        correct = input("Is this the correct data? ")
+            scratch.append(ability) # adding all the abilities to our "scratch" list 
+        # print(scratch)
+        correct = input("Is this the correct data? ") # Confirming with the user
         if correct.lower() == "yes":
             chars.append(scratch)
             # csvout.writerow(chars)
-            with open(file, "w") as outfile:
+            with open(file, "w") as outfile: # Writing out the final file
                 for char in chars:
                     outfile.write(str(char))
-            for name, ability_1, ability_2, ability_3, ability_4 in chars:
+            for name, ability_1, ability_2, ability_3, ability_4 in chars: # Adding everyting in the list to the table
                 table.add_row(name, ability_1, ability_2, ability_3, ability_4)
-        elif correct.lower() == "no":
+        elif correct.lower() == "no": # Repeats the initial input loop if the user wants
             print("Please Re-enter your hero's details")
             name = input("Enter the name of your character: ")
             for i in range(4):
                 ability = input("Enter Ability " + str(i + 1) + ": ")
                 scratch.append(ability)
         scratch = []
-    console.print(table)
-    print("Your data has been added. \nYou can find it at " + file)
+    console.print(table) # Prints table
+    print("Your data has been added. \nYou can find it at " + file) # Prints confirmation and the file path
 
-add_char()
+add_char() # function call so I can test everything
